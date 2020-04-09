@@ -14,5 +14,6 @@ Please fork this repository and follow along **using your fork** as the instruct
 
 ## Deploying to Heroku
 
-- read the package
-- define a start script in package.json that uses node (instead of nodemon) to run the server.
+- read the port from the env "process.env.PORT"
+- define a start script in package.json that uses 'node' (instead of nodemon) to run the server.
+- by default heroku runs the server with start script
