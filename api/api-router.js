@@ -6,17 +6,26 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.get("/", (req, res) => {
-  Shouts.find()
-    .then(shout => {
-      const messageOfTheDay = process.env.MOTD || 'Hello World!'
-      res.status(200).json({ message: messageOfTheDay, shout });
-    })
-    .catch(err => {
-      res.status(500).json({ message: err })
-    })
-  
+router.get("/", async (req, res, next) => {
+  try {
+    const shouts = await Shouts.find()
+    const messageOfTheDay = process.env.MOTD || 'Hello World!'
+        res.status(200).json({ message: messageOfTheDay, shout });
+    } catch(err) {
+      next(err);
+    }
 });
+
+// router.get("/", (req, res, next) => {
+//   Shouts.find()
+//     .then(shout => {
+//       const messageOfTheDay = process.env.MOTD || 'Hello World!'
+//       res.status(200).json({ message: messageOfTheDay, shout });
+//     })
+//     .catch(err => {
+//       next(err);
+//     })
+// });
 
 router.get("/shouts", (req, res, next) => {
   Shouts.find()
